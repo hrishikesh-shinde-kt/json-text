@@ -2,6 +2,13 @@ import streamlit as st
 import pandas as pd
 import requests, json
 
+st.set_page_config(
+  # page_title="PDF-Uploader",
+  # page_icon=":computer:",
+  layout="wide",  # sets page to wide mode as default. 
+  # initial_sidebar_state="expanded"
+)
+
 # Formats text.
 def change_name_format(name):
   return name.replace("_", " ").title()
@@ -38,7 +45,7 @@ if title:
   st.table(df)
 
   url = "http://216.48.187.220:5001/api/v1/SummaryGeneration"
-  headers = {'Content-Type': 'application/x-www-form-urlencoded', 'x-access-token': 'JFUF-HAKU-YUFJ-KFHS'}
+  headers = {'Content-Type': 'application/x-www-form-urlencoded', 'x-access-token': st.secrets["auth_key"]}
 
   #Post API call.
   response = requests.post(url, json=title, headers=headers)
